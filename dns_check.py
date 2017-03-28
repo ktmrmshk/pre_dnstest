@@ -9,9 +9,9 @@ Example:
 
 Todo:
   * class 
-	* Logger
-	* docstring
-	* Unittest code
+  * Logger
+  * docstring
+  * Unittest code
 
 '''
 

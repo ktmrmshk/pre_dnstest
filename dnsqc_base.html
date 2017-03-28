@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>C-Renz: A DNS Tool</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<h2>C-Renz: A DNS Tool</h2>
+				ver0.0.1
+			</div>
+			<form action="#" method="POST">
+				<div class="form-group">
+					<label for="nameserver">Name Server to test</label>
+					<input type="text" class="form-control" id="nameserver" name="nameserver" placeholder="a12.akam.net">
+				</div>
+				<div class="form-group">
+					<label for="zone">Zone <span class="text-muted">(Optional)</span></label>
+					<input type="text" class="form-control" id="zone" name="zone" placeholder="myexample.com">
+				</div>
+				<div class="form-group">
+					<label for="zonefile">Zone File Text</label>
+					<textarea rows="20" class="form-control" id="zonefile" name="zonefile" placeholder="foobar&#10;secondline"></textarea>
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+
+			<hr>
+			<h2>console</h2>
+			<pre>
+@app.route('/form/submit', methods=['POST'])
+def catch_form():
+  text=''
+	text+= '%s\n' % request.form['sex']
+	text+= '%s\n' % request.form['blood']
+	text+= '%s\n' % request.form['name']
+	text+= '%s\n' % request.form['comment']
+	return text
+			</pre>
+
+			<hr>
+			<p>
+			Feedback to mkitamur@akamai.com
+			</p>
+		</div>
+	</body>
+</html>
+
+
