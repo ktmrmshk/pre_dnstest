@@ -11,13 +11,15 @@
 	<body>
 		<div class="container">
 			<div class="jumbotron">
-				<h2>C-Renz: A DNS Tool</h2>
+        <h1>C-Renz:
+          <small>A DNS Tool</small></h1>
+
 				ver0.0.1
 			</div>
 			<form action="#" method="POST">
 				<div class="form-group">
 					<label for="nameserver">Name Server to test</label>
-					<input type="text" class="form-control" id="nameserver" name="nameserver" placeholder="a12.akam.net">
+					<input type="text" class="form-control" id="nameserver" name="nameserver" placeholder="a12-65.akam.net.">
 				</div>
 				<div class="form-group">
 					<label for="zone">Zone <span class="text-muted">(Optional)</span></label>
@@ -27,11 +29,11 @@
 					<label for="zonefile">Zone File Text</label>
 					<textarea rows="20" class="form-control" id="zonefile" name="zonefile" placeholder="foobar&#10;secondline"></textarea>
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 
 			<hr>
-			<h2>console</h2>
+			<h2>Console</h2>
 			<pre>
 @app.route('/form/submit', methods=['POST'])
 def catch_form():
@@ -41,7 +43,50 @@ def catch_form():
 	text+= '%s\n' % request.form['name']
 	text+= '%s\n' % request.form['comment']
 	return text
-			</pre>
+      </pre>
+
+
+      <h2>Table</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Result</th>
+            <th>Zone File</th>
+            <th>Query Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="success">
+            <td>OK!</td>
+            <td>www 1800 IN A 10.20.30.40</td>
+            <td>www.myexample.com. 1800 IN A 10.20.30.40</td>
+          </tr>
+          <tr class="success">
+            <td>OK!</td>
+            <td>www 1800 IN A 10.20.30.50</td>
+            <td>www.myexample.com. 1800 IN A 10.20.30.50</td>
+          </tr>
+          <tr class="danger">
+            <td>NG</td>
+            <td>www 1800 IN A 10.20.30.41</td>
+            <td>www.myexample.com. 1800 IN A 10.20.30.42</td>
+          </tr>
+          <tr class="danger">
+            <td>NG</td>
+            <td>www 1800 IN A 10.20.30.40</td>
+            <td> - </td>
+          </tr>
+          <tr class="danger">
+            <td>NG</td>
+            <td> - </td>
+            <td>www 1800 IN A 10.20.30.40</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+
 
 			<hr>
 			<p>
