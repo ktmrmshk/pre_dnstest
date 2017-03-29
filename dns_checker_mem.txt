@@ -1,0 +1,17 @@
+import dns.resolver
+import dns.zone
+
+z=dns.zone.from_file('zone_revised.txt')
+
+list(z.nodes)[0]
+z.nodes[ list(z.nodes)[0] ].rdatasets[0]
+
+
+z.nodes[ list(z.nodes)[4] ].rdatasets[0].items
+[<DNS IN A rdata: 10.20.30.40>, <DNS IN A rdata: 10.20.30.50>, <DNS IN A rdata: 10.20.30.60>]
+
+
+https://abi.akamai.com/analytics/saw.dll?Dashboard&PortalPath=%2Fshared%2FDelivery%20Excellence%2F_portal%2FDelivery%20Excellence&Page=DelEx%20Home%20Page
+
+
+
