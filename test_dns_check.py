@@ -6,9 +6,52 @@ import dns.rdatatype
 import dns.rrset
 import copy
 
+zonetxt='''$ORIGIN myexample.com
+$TTL		3600
+@       			IN	SOA     a12-65.akam.net. hostmaster.akamai.com. (
+				2016111701
+				10800
+				3600
+				604800
+				86400 )
+;
+							IN	NS			a12-65.akam.net.
+							IN	NS			a4-65.akam.net.
+							IN	NS			a13-65.akam.net.
+							IN	NS			a9-67.akam.net.
+							IN	NS			a1-76.akam.net.
+							IN	NS			a20-65.akam.net.
+
+www			1800	IN	A       10.20.30.40
+        1800	IN	A       10.20.30.50
+        1800	IN	A       10.20.30.60
+
+www2				  IN	A       10.20.30.41
+util    			IN	A			 	10.20.30.42
+file    			IN	CNAME   util    
+backup  			IN	CNAME		util
+
+
+mail    			IN	MX  		0 10.20.30.43
+        			IN	MX  		20 10.20.30.45
+        			IN	MX  		10 10.20.30.46
+							IN	TXT			"v=spf1 +ip4:192.168.100.0/24 +ip4:10.0.0.0/24 ~all"
+
+
+
+
+'''
+
+
+
 class TestDnsCheck(unittest.TestCase):
   def setUp(self):
-    self.dt = DnsTester('zone_revised.txt', 'a12-65.akam.net.')
+    self.dt = DnsTester('a12-65.akam.net.')
+    self.dt.load_file('zone_revised.txt')
+ 
+  def test_load_txt(self):
+    dt1 = DnsTester('a12-65.akam.net.')
+    dt1.load_txt(zonetxt)
 
   def test_get_query_answer(self):
     name, rdtype, rdataset = self.dt.get_rdataset_from_zone('www', 'A')
@@ -32,6 +75,9 @@ class TestDnsCheck(unittest.TestCase):
     self.assertEqual( dns.rdatatype.to_text( ret[1] ), 'NS'  )
     self.assertIsNone(ret[2])
 
+  def test_zone_check(self):
+    ret = self.dt.zone_check()
+    print(ret)
   
   def test_is_ip1(self):
     self.assertTrue( is_ip('1.2.3.4') )

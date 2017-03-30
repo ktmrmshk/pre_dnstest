@@ -58,7 +58,7 @@ class DnsTester(object):
   '''
   main class
   '''
-  def __init__(self, zonefile, authns, zonename=None):
+  def __init__(self, authns, zonename=None):
     '''
     Constructor
     
@@ -69,10 +69,20 @@ class DnsTester(object):
                 if the zone file includes zone definition like 
                 '$ORIGIN myexample.com'
     '''
-    self.zonefile = zonefile
     self.authns = authns
-    self.zone = dns.zone.from_file(self.zonefile)
 
+
+  def load_file(self, zonefile):
+    self.zonefile = zonefile
+    self.zone = dns.zone.from_file(zonefile)
+    self.init_afterload()
+
+  def load_txt(self, zonetxt):
+    self.zonetxt = zonetxt
+    self.zone = dns.zone.from_text(zonetxt)
+    self.init_afterload()
+
+  def init_afterload(self):
     self.zonename = None
     if len(self.zone.origin.labels) != 0:
       self.zonename = self.zone.origin.to_text()
@@ -80,7 +90,6 @@ class DnsTester(object):
       self.zonename = zonename
     if self.zonename is None:
       raise Exception('zonename is not valid: {}'.format(self.zonename))
-
     self.init_resolver()
 
   def init_resolver(self):
@@ -108,6 +117,19 @@ class DnsTester(object):
     ans = self.resolver.query(qname, rdtype)
     return ans.rrset
 
+  def zone_check(self):
+    '''
+    checking whole record the zone contains
+
+    return
+     - list of tuple same as query_check().
+    '''
+    ret=[]
+    for name, node in self.zone.nodes.items():
+      for rdataset in node.rdatasets:
+        ret.extend( self.query_check(name, rdataset) )
+    return ret
+
   def query_check(self, name, rdataset):
     '''
     checks if name server has the entries same as one rdatasets has
@@ -132,13 +154,14 @@ class DnsTester(object):
       qtxt = '-'
       if rdata in qr:
         qtxt = self.rdata_to_text(origin, name, qr, rdata)
-        flg = True
+        if qr.ttl == zr.ttl:
+          flg = True
       ztxt = self.rdata_to_text(origin, name, zr, rdata)
       ret.append( (flg, ztxt, qtxt) )
     
     r_diff = qr - zr
     for rdata in r_diff:
-      flg = Fals
+      flg = False
       ztxt = '-'
       qtxt = self.rdata_to_text(origin, name, qr, rdata)
       ret.append( (flg, ztxt, qtxt) )
