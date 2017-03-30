@@ -15,3 +15,15 @@ https://abi.akamai.com/analytics/saw.dll?Dashboard&PortalPath=%2Fshared%2FDelive
 
 
 
+memo
+----------
+
+* Exception
+* Suggestions
+* Logger
+* Test Case
+* WSGI
+* Documenting
+
+
+
