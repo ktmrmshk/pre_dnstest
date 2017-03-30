@@ -138,7 +138,7 @@ class DnsTester(object):
     
     r_diff = qr - zr
     for rdata in r_diff:
-      flg = False
+      flg = Fals
       ztxt = '-'
       qtxt = self.rdata_to_text(origin, name, qr, rdata)
       ret.append( (flg, ztxt, qtxt) )

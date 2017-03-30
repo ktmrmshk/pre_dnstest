@@ -1,0 +1,31 @@
+
+
+{{ name }}
+
+{% if name2 %}
+<h1>Hello {{ name2 }}</h1>
+{% else %}
+<h2>Good Bye</h2>
+{% endif %}
+
+{{ request }}
+{{ session }}
+{{ g }}
+
+<hr>
+
+<strong>{{ msg }}</strong>
+<hr>
+{{msg2}}
+<hr>
+
+{% for k,v in data.items() %}
+<h3>{{ k }}</h3>{{v}}
+{% endfor %}
+<hr>
+
+<textarea rows="4" cols="50" name="comment" form="usrform">
+{{ plaintxt }}
+
+</textarea>
+
